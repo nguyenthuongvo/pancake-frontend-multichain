@@ -23,14 +23,8 @@ import { useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { chains } from 'utils/wagmi'
 import { useNetwork } from 'wagmi'
-import Image from 'next/future/image'
 
 import { ChainLogo } from './Logo/ChainLogo'
-
-const AptosChain = {
-  id: 1,
-  name: 'Aptos',
-}
 
 const NetworkSelect = ({ switchNetwork, chainId }) => {
   const { t } = useTranslation()
@@ -42,7 +36,7 @@ const NetworkSelect = ({ switchNetwork, chainId }) => {
       </Box>
       <UserMenuDivider />
       {chains
-        .filter((chain) => !chain.testnet || chain.id === chainId)
+        .filter((chain) => chain.id !== chainId)
         .map((chain) => (
           <UserMenuItem
             key={chain.id}
@@ -55,7 +49,7 @@ const NetworkSelect = ({ switchNetwork, chainId }) => {
             </Text>
           </UserMenuItem>
         ))}
-      <UserMenuItem
+      {/* <UserMenuItem
         key={`aptos-${AptosChain.id}`}
         style={{ justifyContent: 'flex-start' }}
         as="a"
@@ -72,7 +66,7 @@ const NetworkSelect = ({ switchNetwork, chainId }) => {
         <Text color="text" pl="12px">
           {AptosChain.name}
         </Text>
-      </UserMenuItem>
+      </UserMenuItem> */}
     </>
   )
 }
