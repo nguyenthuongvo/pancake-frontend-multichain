@@ -1,19 +1,19 @@
 import { DefaultSeoProps } from 'next-seo'
 
 export const SEO: DefaultSeoProps = {
-  titleTemplate: '%s | PancakeSwap',
-  defaultTitle: 'PancakeSwap',
+  titleTemplate: '%s | Tjto Playground',
+  defaultTitle: 'Tjto Playground',
   description:
-    'The most popular AMM on BSC is now on Aptos! Swap your favourite tokens instantly and provide liquidity to start earning from trading fees. Earn CAKE through yield farming, and stake them to earn more tokens, or use them to buy new tokens in initial farm offerings—all on a platform you can trust.',
+    'Cheaper and faster than Superswap, the leading DEX on multi-chain with the best playground in DeFi.',
   twitter: {
     cardType: 'summary_large_image',
-    handle: '@PancakeSwap',
-    site: '@PancakeSwap',
+    handle: '@tjto',
+    site: '@tjto',
   },
   openGraph: {
-    title: '🥞 PancakeSwap - The most popular DeFi exchange on BSC, now on Aptos',
+    title: 'Tjto - The most playground DeFi',
     description:
-      'The most popular AMM on BSC is now on Aptos! Swap your favourite tokens instantly and provide liquidity to start earning from trading fees. Earn CAKE through yield farming, and stake them to earn more tokens, or use them to buy new tokens in initial farm offerings—all on a platform you can trust.',
+      'Cheaper and faster than Superswap, the leading DEX on multi-chain with the best playground in DeFi.',
     images: [{ url: 'https://pancakeswap.finance/images/hero.png' }],
   },
 }
