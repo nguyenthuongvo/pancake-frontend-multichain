@@ -20,6 +20,7 @@ import { ChainLogo } from 'components/Logo/ChainLogo'
 import { getBlockExploreLink, getBlockExploreName } from 'utils'
 import { formatBigNumber } from '@pancakeswap/utils/formatBalance'
 import { useBalance } from 'wagmi'
+import useNativeCurrency from 'hooks/useNativeCurrency'
 
 const COLORS = {
   ETH: '#627EEA',
@@ -38,6 +39,7 @@ const WalletInfo: React.FC<WalletInfoProps> = ({ hasLowNativeBalance, onDismiss 
   const isBSC = chainId === ChainId.BSC
   const bnbBalance = useBalance({ addressOrName: account, chainId: ChainId.BSC })
   const nativeBalance = useBalance({ addressOrName: account, enabled: !isBSC })
+  const native = useNativeCurrency()
 
   const { balance: cakeBalance, fetchStatus: cakeFetchStatus } = useGetCakeBalance()
   const { logout } = useAuth()
