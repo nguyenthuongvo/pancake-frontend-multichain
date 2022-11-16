@@ -8,9 +8,12 @@ import { ChainId } from '@pancakeswap/sdk'
 import { useMemo } from 'react'
 import useSWR from 'swr'
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
-import { bscRpcProvider } from 'utils/providers'
+import { bscRpcProvider, bscTestnetRpcProvider } from 'utils/providers'
 import { useTokenContract } from './useContract'
 import { useSWRContract } from './useSWRContract'
+import { CHAIN_IDS } from 'utils/wagmi'
+import { useBalance } from 'wagmi'
+import { formatEther } from '@ethersproject/units'
 
 const useTokenBalance = (tokenAddress: string, forceBSC?: boolean) => {
   const { account } = useWeb3React()
@@ -41,11 +44,14 @@ const useTokenBalance = (tokenAddress: string, forceBSC?: boolean) => {
 }
 
 export const useGetBnbBalance = () => {
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
   const { status, data, mutate } = useSWR([account, 'bnbBalance'], async () => {
     return bscRpcProvider.getBalance(account)
   })
-
+  if (chainId == ChainId.BSC_TESTNET) {
+    const data =  useBalance({ addressOrName: account, enabled: true }).data.value
+    return { balance: data || Zero, fetchStatus: status, refresh: mutate }
+  }
   return { balance: data || Zero, fetchStatus: status, refresh: mutate }
 }
 

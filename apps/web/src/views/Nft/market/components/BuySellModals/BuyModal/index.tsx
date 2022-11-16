@@ -22,6 +22,7 @@ import TransactionConfirmed from '../shared/TransactionConfirmed'
 import ReviewStage from './ReviewStage'
 import { StyledModal } from './styles'
 import { BuyingStage, PaymentCurrency } from './types'
+import { useBalance } from 'wagmi'
 
 const modalTitles = (t: TranslateFunction) => ({
   [BuyingStage.REVIEW]: t('Review'),
@@ -56,6 +57,7 @@ const BuyModal: React.FC<React.PropsWithChildren<BuyModalProps>> = ({ nftToBuy, 
 
   const nftPriceWei = parseUnits(nftToBuy?.marketData?.currentAskPrice, 'ether')
   const nftPrice = parseFloat(nftToBuy?.marketData?.currentAskPrice)
+  
 
   // BNB - returns ethers.BigNumber
   const { balance: bnbBalance, fetchStatus: bnbFetchStatus } = useGetBnbBalance()

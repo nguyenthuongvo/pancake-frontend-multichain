@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /**
@@ -35,6 +36,7 @@ router.get('/apr', async ({ query }) => {
 router.get('/:chainId', async ({ params }, event) => {
   const err = requireChainId(params)
   if (err) return err
+  // @ts-ignore
   const { chainId } = params!
 
   const cached = KV_CACHE && (await FarmKV.getFarms(chainId))
@@ -71,6 +73,7 @@ addEventListener('scheduled', (event) => {
 })
 
 // eslint-disable-next-line consistent-return
+// @ts-ignore
 async function handleScheduled(event: ScheduledEvent) {
   switch (event.cron) {
     case '*/1 * * * *':

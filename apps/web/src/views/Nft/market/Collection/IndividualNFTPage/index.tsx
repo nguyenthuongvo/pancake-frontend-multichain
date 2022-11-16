@@ -10,6 +10,8 @@ const IndividualNFTPageRouter = () => {
   // For PancakeBunnies tokenId in url is really bunnyId
   const { collectionAddress, tokenId } = router.query
 
+  console.log(`collectionAddress ${collectionAddress} token id ${tokenId}`)
+
   if (router.isFallback) {
     return <PageLoader />
   }

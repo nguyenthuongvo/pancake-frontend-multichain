@@ -25,6 +25,67 @@ export const useGetCollections = (): { data: ApiCollections; status: FetchStatus
   return { data: collections, status }
 }
 
+export const useGetFreeCollections = (): { data: any; status: FetchStatus } => {
+  const status = FetchStatus.Fetched
+  const collections = [
+      {
+        "address": "0xE32aE22Ec60E21980247B4bDAA16E9AEa265F919",
+        "owner": "0x3202CC2451CC07F80Ce9BAbD77E23a0916d837b7",
+        "name": "MoonPets",
+        "description": "MoonPets is a Dynamic NFT Collection that is taking your dog off their leash and putting them on-chain.",
+        "symbol": "MPNFT",
+        "totalSupply": "5565",
+        "verified": true,
+        "createdAt": "2022-11-07T19:28:54.565Z",
+        "updatedAt": "2022-11-07T19:28:54.565Z",
+        "avatar": "https://static-nft.pancakeswap.com/mainnet/0xE32aE22Ec60E21980247B4bDAA16E9AEa265F919/avatar.png",
+        "banner": {
+          "large": "https://static-nft.pancakeswap.com/mainnet/0xE32aE22Ec60E21980247B4bDAA16E9AEa265F919/banner-lg.png",
+          "small": "https://static-nft.pancakeswap.com/mainnet/0xE32aE22Ec60E21980247B4bDAA16E9AEa265F919/banner-sm.png"
+        },
+        "totalVolumeBNB" : 12000
+      },
+      {
+        "address": "0x59b39a2092cda9C590B1576EE5AA204a487e46e6",
+        "owner": "0x8A0A1622D29CEa6574632a5b8C016DB953694822",
+        "name": "Gooodfellas Binions",
+        "description": "The Binions are a mixed tribe of adorably creepy monsters indigenous to BNB Chain. After centuries of war, the Binion tribes have united as one, combining their forces to protect their native BNB Chain land from evil forces wishing them harm. Binions are calling for every able bodied Binion to unite, one army under CZ! ",
+        "symbol": "OOO-BIN",
+        "totalSupply": "4000",
+        "verified": true,
+        "createdAt": "2022-08-30T17:14:45.392Z",
+        "updatedAt": "2022-08-30T17:14:45.392Z",
+        "avatar": "https://static-nft.pancakeswap.com/mainnet/0x59b39a2092cda9C590B1576EE5AA204a487e46e6/avatar.png",
+        "banner": {
+          "large": "https://static-nft.pancakeswap.com/mainnet/0x59b39a2092cda9C590B1576EE5AA204a487e46e6/banner-lg.png",
+          "small": "https://static-nft.pancakeswap.com/mainnet/0x59b39a2092cda9C590B1576EE5AA204a487e46e6/banner-sm.png"
+        },
+        "totalVolumeBNB" : 16421
+      },
+      {
+        "address": "0x59b39a2092cda9C590B1576EE5AA204a487e46e6",
+        "owner": "0x8A0A1622D29CEa6574632a5b8C016DB953694822",
+        "name": "Gooodfellas Binions",
+        "description": "The Binions are a mixed tribe of adorably creepy monsters indigenous to BNB Chain. After centuries of war, the Binion tribes have united as one, combining their forces to protect their native BNB Chain land from evil forces wishing them harm. Binions are calling for every able bodied Binion to unite, one army under CZ! ",
+        "symbol": "OOO-BIN",
+        "totalSupply": "4000",
+        "verified": true,
+        "createdAt": "2022-08-30T17:14:45.392Z",
+        "updatedAt": "2022-08-30T17:14:45.392Z",
+        "avatar": "https://static-nft.pancakeswap.com/mainnet/0x59b39a2092cda9C590B1576EE5AA204a487e46e6/avatar.png",
+        "banner": {
+          "large": "https://static-nft.pancakeswap.com/mainnet/0x59b39a2092cda9C590B1576EE5AA204a487e46e6/banner-lg.png",
+          "small": "https://static-nft.pancakeswap.com/mainnet/0x59b39a2092cda9C590B1576EE5AA204a487e46e6/banner-sm.png"
+        },
+        "totalVolumeBNB" : 1333
+      }
+    ]
+
+  // const collections = data ?? ({} as ApiCollections)
+  
+  return { data: collections, status }
+}
+
 export const useGetCollection = (collectionAddress: string): Collection | undefined => {
   const checksummedCollectionAddress = isAddress(collectionAddress) || ''
   const { data } = useSWR(

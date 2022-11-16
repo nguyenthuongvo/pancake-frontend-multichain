@@ -125,7 +125,7 @@ const OwnerCard: React.FC<React.PropsWithChildren<OwnerCardProps>> = ({
                   maxWidth="128px"
                   onClick={onPresentBuyModal}
                 >
-                  {t('Buy')}
+                  {t('Mint')}
                 </Button>
               )}
             </ButtonContainer>

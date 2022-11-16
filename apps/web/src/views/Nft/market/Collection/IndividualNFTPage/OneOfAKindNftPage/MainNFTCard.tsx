@@ -35,6 +35,11 @@ const MainNFTCard: React.FC<React.PropsWithChildren<MainNFTCardProps>> = ({
     <SellModal variant={nft.marketData?.isTradable ? 'edit' : 'sell'} nftToSell={nft} onSuccessSale={onSuccess} />,
   )
   const [onEditProfileModal] = useModal(<EditProfileModal />, false)
+  
+  function onClick(event) {
+    console.log(`Onclick mint Button`);
+    
+  }
 
   const ownerButtons = (
     <Flex flexDirection={['column', 'column', 'row']}>
@@ -111,9 +116,9 @@ const MainNFTCard: React.FC<React.PropsWithChildren<MainNFTCardProps>> = ({
                   mr="16px"
                   width={['100%', null, 'max-content']}
                   mt="24px"
-                  onClick={onPresentBuyModal}
+                  onClick={onClick}
                 >
-                  {t('Buy')}
+                  {t('Mint')}
                 </Button>
               )}
             </Box>

@@ -51,6 +51,7 @@ export const getCollectionsApi = async (): Promise<ApiCollectionsResponse> => {
   const res = await fetch(`${API_NFT}/collections`)
   if (res.ok) {
     const json = await res.json()
+    console.log(json);
     return json
   }
   console.error('Failed to fetch NFT collections', res.statusText)
@@ -99,6 +100,7 @@ export const getCollections = async (): Promise<Record<string, Collection>> => {
     return null
   }
 }
+
 
 /**
  * Fetch collection data by combining data from the API (static metadata) and the Subgraph (dynamic market data)
@@ -191,6 +193,7 @@ export const getNftApi = async (
   tokenId: string,
 ): Promise<ApiResponseSpecificToken['data']> => {
   const res = await fetch(`${API_NFT}/collections/${collectionAddress}/tokens/${tokenId}`)
+  console.log(`${API_NFT}/collections/${collectionAddress}/tokens/${tokenId}`);
   if (res.ok) {
     const json = await res.json()
     return json.data
