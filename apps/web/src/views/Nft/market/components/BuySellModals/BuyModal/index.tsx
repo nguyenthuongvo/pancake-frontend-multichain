@@ -22,7 +22,6 @@ import TransactionConfirmed from '../shared/TransactionConfirmed'
 import ReviewStage from './ReviewStage'
 import { StyledModal } from './styles'
 import { BuyingStage, PaymentCurrency } from './types'
-import { useBalance } from 'wagmi'
 
 const modalTitles = (t: TranslateFunction) => ({
   [BuyingStage.REVIEW]: t('Review'),

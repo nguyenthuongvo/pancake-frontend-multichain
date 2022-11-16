@@ -193,7 +193,6 @@ export const getNftApi = async (
   tokenId: string,
 ): Promise<ApiResponseSpecificToken['data']> => {
   const res = await fetch(`${API_NFT}/collections/${collectionAddress}/tokens/${tokenId}`)
-  console.log(`${API_NFT}/collections/${collectionAddress}/tokens/${tokenId}`);
   if (res.ok) {
     const json = await res.json()
     return json.data

@@ -1,6 +1,5 @@
 import {
   MenuItemsType,
-  DropdownMenuItemType,
   SwapIcon,
   SwapFillIcon,
   EarnFillIcon,
@@ -14,8 +13,6 @@ import {
 } from '@pancakeswap/uikit'
 import { ContextApi } from '@pancakeswap/localization'
 import { nftsBaseUrl } from 'views/Nft/market/constants'
-import { perpLangMap } from 'utils/getPerpetualLanguageCode'
-import { perpTheme } from 'utils/getPerpetualTheme'
 import { SUPPORT_ONLY_BSC } from 'config/constants/supportChains'
 
 export type ConfigMenuDropDownItemsType = DropdownMenuItems & { hideSubNav?: boolean }

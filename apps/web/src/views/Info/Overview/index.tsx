@@ -1,5 +1,5 @@
 import { useTranslation } from '@pancakeswap/localization'
-import { Card, Flex, Heading } from '@pancakeswap/uikit'
+import { Flex, Heading } from '@pancakeswap/uikit'
 import Page from 'components/Layout/Page'
 import { useMemo } from 'react'
 import {
@@ -10,12 +10,8 @@ import {
   useProtocolTransactionsSWR,
 } from 'state/info/hooks'
 import styled from 'styled-components'
-import BarChart from 'views/Info/components/InfoCharts/BarChart'
-import LineChart from 'views/Info/components/InfoCharts/LineChart'
-import PoolTable from 'views/Info/components/InfoTables/PoolsTable'
 import TokenTable from 'views/Info/components/InfoTables/TokensTable'
 import TransactionTable from 'views/Info/components/InfoTables/TransactionsTable'
-import HoverableChart from '../components/InfoCharts/HoverableChart'
 
 export const ChartCardsContainer = styled(Flex)`
   justify-content: space-between;
@@ -102,7 +98,6 @@ const Overview: React.FC<React.PropsWithChildren> = () => {
       <Heading scale="lg" mt="40px" mb="16px">
         {t('Top Pools')}
       </Heading>
-      <PoolTable poolDatas={poolDatas} loading={somePoolsAreLoading} />
       <Heading scale="lg" mt="40px" mb="16px">
         {t('Transactions')}
       </Heading>

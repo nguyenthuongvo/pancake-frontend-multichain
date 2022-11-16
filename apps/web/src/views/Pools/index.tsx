@@ -10,7 +10,6 @@ import {
   Flex,
   Image,
   Text,
-  Link,
   FlexLayout,
   PageHeader,
   SearchInput,
@@ -82,20 +81,6 @@ const ControlStretch = styled(Flex)`
   > div {
     flex: 1;
   }
-`
-
-const FinishedTextContainer = styled(Flex)`
-  padding-bottom: 32px;
-  flex-direction: column;
-  ${({ theme }) => theme.mediaQueries.md} {
-    flex-direction: row;
-  }
-`
-
-const FinishedTextLink = styled(Link)`
-  font-weight: 400;
-  white-space: nowrap;
-  text-decoration: underline;
 `
 
 const NUMBER_OF_POOLS_VISIBLE = 12

@@ -1,17 +1,9 @@
-import styled from 'styled-components'
-import PageSection from 'components/PageSection'
-import { useWeb3React } from '@pancakeswap/wagmi'
-import useTheme from 'hooks/useTheme'
-import Container from 'components/Layout/Container'
 import { useTranslation } from '@pancakeswap/localization'
-import { Heading } from '@pancakeswap/uikit'
-import { useMemo } from 'react'
-import { useAllTokenDataSWR } from 'state/info/hooks'
 import orderBy from 'lodash/orderBy'
 import Page from 'components/Layout/Page'
 import PageLoader from 'components/Loader/PageLoader'
 import { FetchStatus } from 'config/constants/types'
-import { useGetCollections, useGetFreeCollections } from 'state/nftMarket/hooks'
+import { useGetFreeCollections } from 'state/nftMarket/hooks'
 import Project from 'views/Nft/market/Home/Project'
 
 

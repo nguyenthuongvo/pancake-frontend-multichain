@@ -1,8 +1,7 @@
 import styled from 'styled-components'
-import { Box, Button, Flex, Heading, LinkExternal, PageHeader, NextLinkFromReactRouter } from '@pancakeswap/uikit'
+import { Button, Flex, Heading, PageHeader, NextLinkFromReactRouter } from '@pancakeswap/uikit'
 import { useWeb3React } from '@pancakeswap/wagmi'
 import { useTranslation } from '@pancakeswap/localization'
-import SectionsWithFoldableText from 'components/FoldableSection/SectionsWithFoldableText'
 import PageSection from 'components/PageSection'
 import { PageMeta } from 'components/Layout/Page'
 import { useGetCollections } from 'state/nftMarket/hooks'
@@ -12,11 +11,6 @@ import useTheme from 'hooks/useTheme'
 import orderBy from 'lodash/orderBy'
 import SearchBar from '../components/SearchBar'
 import Project from './Project'
-import config from './config'
-
-const Gradient = styled(Box)`
-  background: ${({ theme }) => theme.colors.gradientCardHeader};
-`
 
 const StyledPageHeader = styled(PageHeader)`
   margin-bottom: -40px;
