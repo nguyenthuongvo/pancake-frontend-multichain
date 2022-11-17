@@ -73,7 +73,7 @@ const config = {
       {
         source: '/info/pair/:address',
         destination: '/info/pools/:address',
-      },
+      }
     ]
   },
   async headers() {
@@ -148,7 +148,7 @@ const config = {
         source: '/collectibles',
         destination: '/nfts',
         permanent: true,
-      },
+      }
     ]
   },
   webpack: (webpackConfig, { webpack }) => {
