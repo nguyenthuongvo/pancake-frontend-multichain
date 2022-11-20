@@ -58,6 +58,10 @@ const config = {
         protocol: 'https',
         hostname: 'static-nft.pancakeswap.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'tjto.xyz',
+      },
     ],
   },
   async rewrites() {
