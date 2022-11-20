@@ -44,40 +44,6 @@ export const useGetFreeCollections = (): { data: any; status: FetchStatus } => {
           "small": "https://tjto.xyz/images/nft_newbies/0x27f10c63c03eac2d196198163a04b31d78c5c20a/banner-sm.png"
         },
         "totalVolumeBNB" : 12000
-      },
-      {
-        "address": "0x27f10c63c03eac2d196198163a04b31d78c5c20a",
-        "owner": "0x8A0A1622D29CEa6574632a5b8C016DB953694822",
-        "name": "Gooodfellas Binions",
-        "description": "The Binions are a mixed tribe of adorably creepy monsters indigenous to BNB Chain. After centuries of war, the Binion tribes have united as one, combining their forces to protect their native BNB Chain land from evil forces wishing them harm. Binions are calling for every able bodied Binion to unite, one army under CZ! ",
-        "symbol": "OOO-BIN",
-        "totalSupply": "4000",
-        "verified": true,
-        "createdAt": "2022-08-30T17:14:45.392Z",
-        "updatedAt": "2022-08-30T17:14:45.392Z",
-        "avatar": "https://static-nft.pancakeswap.com/mainnet/0x59b39a2092cda9C590B1576EE5AA204a487e46e6/avatar.png",
-        "banner": {
-          "large": "https://static-nft.pancakeswap.com/mainnet/0x59b39a2092cda9C590B1576EE5AA204a487e46e6/banner-lg.png",
-          "small": "https://static-nft.pancakeswap.com/mainnet/0x59b39a2092cda9C590B1576EE5AA204a487e46e6/banner-sm.png"
-        },
-        "totalVolumeBNB" : 16421
-      },
-      {
-        "address": "0x27f10c63c03eac2d196198163a04b31d78c5c20a",
-        "owner": "0x8A0A1622D29CEa6574632a5b8C016DB953694822",
-        "name": "Gooodfellas Binions",
-        "description": "The Binions are a mixed tribe of adorably creepy monsters indigenous to BNB Chain. After centuries of war, the Binion tribes have united as one, combining their forces to protect their native BNB Chain land from evil forces wishing them harm. Binions are calling for every able bodied Binion to unite, one army under CZ! ",
-        "symbol": "OOO-BIN",
-        "totalSupply": "4000",
-        "verified": true,
-        "createdAt": "2022-08-30T17:14:45.392Z",
-        "updatedAt": "2022-08-30T17:14:45.392Z",
-        "avatar": "https://static-nft.pancakeswap.com/mainnet/0x59b39a2092cda9C590B1576EE5AA204a487e46e6/avatar.png",
-        "banner": {
-          "large": "https://static-nft.pancakeswap.com/mainnet/0x59b39a2092cda9C590B1576EE5AA204a487e46e6/banner-lg.png",
-          "small": "https://static-nft.pancakeswap.com/mainnet/0x59b39a2092cda9C590B1576EE5AA204a487e46e6/banner-sm.png"
-        },
-        "totalVolumeBNB" : 1333
       }
     ]
 
