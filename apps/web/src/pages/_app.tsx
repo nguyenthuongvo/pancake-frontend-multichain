@@ -69,14 +69,15 @@ function MyApp(props: AppProps<{ initialReduxState: any }>) {
           content="Cheaper and faster than Superswap, the leading DEX on multi-chain with the best playground in DeFi."
         />
         <meta name="theme-color" content="#1FC7D4" />
-        <meta name="twitter:image" content="https://pancakeswap.finance/images/hero.png" />
+        <meta name="twitter:image" content="https://www.tjto.xyz/images/hero.png" />
+        <meta name="og:image" content="https://www.tjto.xyz/images/hero.png" />
         <meta
           name="twitter:description"
           content="Cheaper and faster than Superswap, the leading DEX on multi-chain with the best playground in DeFi."
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Tjto Playground" />
-        <title>PancakeSwap</title>
+        <title>Tjto</title>
         {(Component as NextPageWithLayout).mp && (
           // eslint-disable-next-line @next/next/no-sync-scripts
           <script src="https://public.bnbstatic.com/static/js/mp-webview-sdk/webview-v1.0.0.min.js" id="mp-webview" />

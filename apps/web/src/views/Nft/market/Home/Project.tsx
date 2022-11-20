@@ -36,7 +36,7 @@ const Project: React.FC<React.PropsWithChildren<{ title: string; testId: string;
               bgSrc={collection.banner.small}
               avatarSrc={collection.avatar}
               collectionName={collection.name}
-              url={`${launchpadBaseUrl}/collections/${collection.address}/4557`}
+              nftContract={collection.address}
             >
               <Flex alignItems="center">
                 <Text fontSize="12px" color="textSubtle">
