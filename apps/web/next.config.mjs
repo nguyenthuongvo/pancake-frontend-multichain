@@ -9,6 +9,7 @@ const withBundleAnalyzer = BundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 })
 
+
 const withTM = NextTranspileModules([
   '@pancakeswap/ui',
   '@pancakeswap/uikit',
