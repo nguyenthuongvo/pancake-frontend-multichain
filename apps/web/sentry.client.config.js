@@ -4,7 +4,7 @@
 
 import { init, GlobalHandlers, Breadcrumbs, Dedupe } from '@sentry/react'
 
-const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN
+const SENTRY_DSN = "https://27d6a01886ed410e9a4f38ebafd9edd3@o928152.ingest.sentry.io/4504161073758208"
 
 const isUserRejected = (err) => {
   // provider user rejected error code
@@ -17,7 +17,7 @@ init({
   dsn: SENTRY_DSN,
   integrations: [
     new Breadcrumbs({
-      console: ENV === 'production',
+      console: false,
     }),
     new GlobalHandlers({
       onerror: false,
@@ -25,7 +25,7 @@ init({
     }),
     new Dedupe(),
   ],
-  environment: ENV === 'production' ? 'production' : 'development',
+  environment: 'development',
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 0,
   // ...

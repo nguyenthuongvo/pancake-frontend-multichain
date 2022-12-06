@@ -4,12 +4,11 @@
 
 import { init } from '@sentry/nextjs'
 
-const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN
-const ENV = process.env.VERCEL_ENV || process.env.NODE_ENV
+const SENTRY_DSN = "https://27d6a01886ed410e9a4f38ebafd9edd3@o928152.ingest.sentry.io/4504161073758208"
 
 init({
   dsn: SENTRY_DSN,
-  environment: ENV === 'production' ? 'production' : 'development',
+  environment: 'development',
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 0,
   // ...
