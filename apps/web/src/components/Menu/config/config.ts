@@ -12,8 +12,6 @@ import {
   DropdownMenuItems,
 } from '@pancakeswap/uikit'
 import { ContextApi } from '@pancakeswap/localization'
-import { nftsBaseUrl } from 'views/Nft/market/constants'
-import { SUPPORT_ONLY_BSC } from 'config/constants/supportChains'
 
 export type ConfigMenuDropDownItemsType = DropdownMenuItems & { hideSubNav?: boolean }
 export type ConfigMenuItemsType = Omit<MenuItemsType, 'items'> & { hideSubNav?: boolean; image?: string } & {
@@ -55,77 +53,6 @@ const config: (
           label: t('Liquidity'),
           href: '/liquidity',
         }
-      ].map((item) => addMenuItemSupported(item, chainId)),
-    },
-    {
-      label: t('Earn'),
-      href: '/farms',
-      icon: EarnIcon,
-      fillIcon: EarnFillIcon,
-      image: '/images/decorations/pe2.png',
-      items: [
-        {
-          label: t('Farms'),
-          href: '/farms',
-          supportChainIds: SUPPORT_ONLY_BSC,
-        },
-        {
-          label: t('Pools'),
-          href: '/pools',
-          supportChainIds: SUPPORT_ONLY_BSC,
-        },
-      ].map((item) => addMenuItemSupported(item, chainId)),
-    },
-    {
-      label: t('Learn'),
-      href: '/prediction',
-      icon: TrophyIcon,
-      fillIcon: TrophyFillIcon,
-      items: [
-        {
-          label: t('Launchpad'),
-          href: '/launchpad',
-          image: '/images/decorations/prediction.png',
-        },
-        {
-          label: t('Prediction (BETA)'),
-          href: '/prediction',
-          image: '/images/decorations/prediction.png',
-        }
-      ],
-    },
-    {
-      label: t('NFT'),
-      href: `${nftsBaseUrl}`,
-      icon: NftIcon,
-      fillIcon: NftFillIcon,
-      supportChainIds: SUPPORT_ONLY_BSC,
-      image: '/images/decorations/nft.png',
-      items: [
-        {
-          label: t('Overview'),
-          href: `${nftsBaseUrl}`,
-        },
-        {
-          label: t('Collections'),
-          href: `${nftsBaseUrl}/collections`,
-        },
-        {
-          label: t('Activity'),
-          href: `${nftsBaseUrl}/activity`,
-        },
-      ],
-    },
-    {
-      label: '',
-      href: '/info',
-      icon: MoreIcon,
-      hideSubNav: true,
-      items: [
-        {
-          label: t('Info'),
-          href: '/info',
-        },
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
   ].map((item) => addMenuItemSupported(item, chainId))
