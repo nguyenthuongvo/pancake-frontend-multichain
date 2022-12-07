@@ -6,9 +6,7 @@ import isZero from '@pancakeswap/utils/isZero'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useMemo } from 'react'
 import truncateHash from '@pancakeswap/utils/truncateHash'
-import { StableTrade } from 'views/Swap/StableSwap/hooks/useStableTradeExactIn'
 import { logTx } from 'utils/log'
-
 import { INITIAL_ALLOWED_SLIPPAGE } from '../config/constants'
 import { useTransactionAdder } from '../state/transactions/hooks'
 import { calculateGasMargin, isAddress } from '../utils'
@@ -38,7 +36,7 @@ interface SwapCallEstimate {
   call: SwapCall
 }
 
-type ITrade = Trade<Currency, Currency, TradeType> | StableTrade | undefined
+type ITrade = Trade<Currency, Currency, TradeType> | undefined
 
 // returns a function that will execute a swap, if the parameters are all valid
 // and the user has approved the slippage adjusted input amount for the trade

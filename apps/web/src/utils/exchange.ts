@@ -13,8 +13,6 @@ import {
 } from 'config/constants/exchange'
 import { useActiveChainId } from 'hooks/useActiveChainId'
 import { useContract } from 'hooks/useContract'
-import { StableTrade } from 'views/Swap/StableSwap/hooks/useStableTradeExactIn'
-import { Field } from '../state/swap/actions'
 
 // converts a basis points value to a sdk percent
 export function basisPointsToPercent(num: number): Percent {
@@ -70,18 +68,6 @@ export function computeTradePriceBreakdown(trade?: Trade<Currency, Currency, Tra
     )
 
   return { priceImpactWithoutFee: priceImpactWithoutFeePercent, realizedLPFee: realizedLPFeeAmount }
-}
-
-// computes the minimum amount out and maximum amount in for a trade given a user specified allowed slippage in bips
-export function computeSlippageAdjustedAmounts(
-  trade: Trade<Currency, Currency, TradeType> | StableTrade | undefined,
-  allowedSlippage: number,
-): { [field in Field]?: CurrencyAmount<Currency> } {
-  const pct = basisPointsToPercent(allowedSlippage)
-  return {
-    [Field.INPUT]: trade?.maximumAmountIn(pct),
-    [Field.OUTPUT]: trade?.minimumAmountOut(pct),
-  }
 }
 
 export function warningSeverity(priceImpact: Percent | undefined): 0 | 1 | 2 | 3 | 4 {

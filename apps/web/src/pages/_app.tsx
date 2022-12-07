@@ -4,7 +4,6 @@ import BigNumber from 'bignumber.js'
 import GlobalCheckClaimStatus from 'components/GlobalCheckClaimStatus'
 import { NetworkModal } from 'components/NetworkModal'
 import { FixedSubgraphHealthIndicator } from 'components/SubgraphHealthIndicator/FixedSubgraphHealthIndicator'
-import { useAccountEventListener } from 'hooks/useAccountEventListener'
 import useEagerConnect from 'hooks/useEagerConnect'
 import useEagerConnectMP from 'hooks/useEagerConnect.bmp'
 import useSentryUser from 'hooks/useSentryUser'
@@ -38,7 +37,6 @@ function GlobalHooks() {
   usePollBlockNumber()
   useEagerConnect()
   useUserAgent()
-  useAccountEventListener()
   useSentryUser()
   useThemeCookie()
   return null
@@ -48,7 +46,6 @@ function MPGlobalHooks() {
   usePollBlockNumber()
   useEagerConnectMP()
   useUserAgent()
-  useAccountEventListener()
   useSentryUser()
   return null
 }
