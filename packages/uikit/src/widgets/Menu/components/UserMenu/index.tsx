@@ -63,6 +63,17 @@ const Menu = styled.div<{ isOpen: boolean }>`
   }
 `;
 
+const BaseLabel = styled.label`
+  color: ${({ theme }) => theme.colors.text};
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+`
+
+export const Label = styled(BaseLabel)`
+  font-size: 20px;
+`
+
 const UserMenu: React.FC<UserMenuProps> = ({
   account,
   text,
