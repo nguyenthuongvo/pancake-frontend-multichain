@@ -1,6 +1,5 @@
 import { Swap } from '@pancakeswap/uikit'
 import { PageMeta } from 'components/Layout/Page'
-import { EXCHANGE_DOCS_URLS } from 'config/constants'
 
 const Page: React.FC<
   React.PropsWithChildren<{
@@ -14,7 +13,7 @@ const Page: React.FC<
   removePadding = false,
   hideFooterOnDesktop = false,
   noMinHeight = false,
-  helpUrl = EXCHANGE_DOCS_URLS,
+  helpUrl = null,
   ...props
 }) => {
   return (

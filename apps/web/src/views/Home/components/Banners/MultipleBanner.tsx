@@ -7,7 +7,6 @@ import 'swiper/css'
 import 'swiper/css/effect-fade'
 import 'swiper/css/pagination'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { useMultipleBannerConfig } from './hooks/useMultipleBannerConfig'
 
 const BannerPlaceHolder = styled.div<{ walletConnected: boolean }>`
   position: relative;
@@ -89,25 +88,13 @@ const StyledSwiper = styled(Swiper)`
 `
 
 const MultipleBanner: React.FC<React.PropsWithChildren> = () => {
-  const bannerList = useMultipleBannerConfig()
   const { account } = useWeb3React()
-  const { isDesktop, isTablet } = useMatchBreakpoints()
-  const [swiperRef, setSwiperRef] = useState<SwiperCore>(null)
-
-  useIsomorphicEffect(() => {
-    if (swiperRef) {
-      if (bannerList.length > 1 && !swiperRef.autoplay?.running) {
-        swiperRef.autoplay?.start()
-      } else if (bannerList.length <= 1 && swiperRef.autoplay?.running) {
-        swiperRef.autoplay?.stop()
-      }
-    }
-  }, [bannerList, swiperRef])
+  
 
   return (
     <BannerPlaceHolder walletConnected={Boolean(account)}>
       <StyledSwiper
-        onSwiper={setSwiperRef}
+        onSwiper={null}
         modules={[Autoplay, Pagination, EffectFade]}
         spaceBetween={50}
         observer
@@ -119,14 +106,6 @@ const MultipleBanner: React.FC<React.PropsWithChildren> = () => {
         loop
         pagination={{ clickable: true }}
       >
-        {bannerList.map((banner, index) => {
-          const childKey = `Banner${index}`
-          return (
-            <SwiperSlide style={{ padding: isDesktop || isTablet ? 20 : 0 }} key={childKey}>
-              {banner}
-            </SwiperSlide>
-          )
-        })}
       </StyledSwiper>
     </BannerPlaceHolder>
   )

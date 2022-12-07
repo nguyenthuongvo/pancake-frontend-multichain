@@ -13,7 +13,6 @@ import {
   useDisconnect,
   useNetwork,
 } from 'wagmi'
-import { clearUserStates } from '../utils/clearUserStates'
 import { useActiveChainId } from './useActiveChainId'
 import { useSessionChainId } from './useSessionChainId'
 
@@ -56,7 +55,7 @@ const useAuth = () => {
     } catch (error) {
       console.error(error)
     } finally {
-      clearUserStates(dispatch, { chainId: chain?.id, isDeactive: true })
+      
     }
   }, [disconnectAsync, dispatch, chain?.id])
 
