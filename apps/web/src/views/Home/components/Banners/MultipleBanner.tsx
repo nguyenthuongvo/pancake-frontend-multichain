@@ -89,6 +89,7 @@ const StyledSwiper = styled(Swiper)`
 
 const MultipleBanner: React.FC<React.PropsWithChildren> = () => {
   const { account } = useWeb3React()
+  
 
   return (
     <BannerPlaceHolder walletConnected={Boolean(account)}>
