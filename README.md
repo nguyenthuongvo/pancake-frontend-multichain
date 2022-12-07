@@ -12,10 +12,3 @@ yarn build
 # start the application after build
 yarn start
 ```
-</details>
-
-## `apps/aptos`
-<details>
-<summary>
-How to start
-</summary>
