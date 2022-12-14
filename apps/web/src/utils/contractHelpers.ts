@@ -171,19 +171,17 @@ export const getContract = ({
 export const getFactoryContract = ({
   abi,
   bytecode,
-  chainId,
   signer,
 }: {
   abi: any
   bytecode: any
-  chainId: number
   signer?: Signer
 }) => {
   return new ContractFactory(abi, bytecode, signer)
 }
 
-export const getContractFactory  = (abi?: any, bytecode?: any, chainId?: number, signer?: Signer) => {
-  return getFactoryContract({ abi, bytecode, chainId , signer }) as ContractFactory
+export const getContractFactory  = (abi?: any, bytecode?: any, signer?: Signer) => {
+  return getFactoryContract({ abi, bytecode , signer }) as ContractFactory
 }
 
 export const getBep20Contract = (address: string, signer?: Signer | Provider) => {

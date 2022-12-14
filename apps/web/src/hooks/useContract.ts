@@ -96,9 +96,9 @@ export const useIfoV3Contract = (address: string) => {
   return useMemo(() => getIfoV3Contract(address, signer), [address, signer])
 }
 
-export const useERC20Factory = (abi: any, bytecode: any , chainId: number) => {
+export const useERC20Factory = (abi: any, bytecode: any) => {
   const { data: signer } = useSigner()
-  return useMemo(() => getContractFactory(abi, bytecode, chainId, signer), [abi, bytecode, chainId, signer])
+  return useMemo(() => getContractFactory(abi, bytecode, signer), [abi, bytecode, signer])
 }
 
 export const useERC20 = (address: string, withSignerIfPossible = true) => {
