@@ -155,7 +155,7 @@ const Home = () => {
                 </Box>
                 <Box mb="24px">
                   <SecondaryLabel>{t('ERC20 token review')}</SecondaryLabel>
-                  <SecondaryLabel>{tokenName + ' (' + tokenSymbol + '): ' + tokenSupply.toString().toLocaleString("en-US")}</SecondaryLabel>
+                  <SecondaryLabel>{tokenName + ' (' + tokenSymbol + '): ' + tokenSupply.toLocaleString()}</SecondaryLabel>
                   {
                     address && <Link href={'https://testnet.bscscan.com/address/' + address}>
                     Contract address
