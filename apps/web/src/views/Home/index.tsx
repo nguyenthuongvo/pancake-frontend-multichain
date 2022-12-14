@@ -103,7 +103,7 @@ const Home = () => {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:3000/api/createContract", requestOptions)
+    fetch("/api/createContract", requestOptions)
       .then(response => response.json())
       .then(result => {        
         setData({abi: result["ERC20Tokenabi"], bytecode: result["ERC20Token"]})
