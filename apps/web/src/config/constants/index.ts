@@ -2,7 +2,7 @@
 
 // SDN OFAC addresses
 export const BLOCKED_ADDRESSES: string[] = [
-  '0x42F10Bb701ed230222aC6F748320040A0e3ddfAD'
+  
 ]
 
 // default allowed slippage, in bips

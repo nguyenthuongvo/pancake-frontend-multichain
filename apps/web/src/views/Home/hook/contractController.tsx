@@ -23,6 +23,7 @@ export function useDeployContract(abi: string, bytecode: string, tokenName: stri
             setDeploy(true)
             const result = await contractFactory.deploy(tokenName, tokenSymbol, tokenSupply)
             console.log(result);
+            setAddress(result.address);
             toastSuccess("Success", <ToastDescriptionWithTx txHash={result.deployTransaction.hash} />)
             setDeploy(false)
 
