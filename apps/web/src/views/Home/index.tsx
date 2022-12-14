@@ -7,8 +7,10 @@ import {
   Input,
   useToast,
   Button,
-  AutoRenewIcon
+  AutoRenewIcon,
+  IconButton
 } from '@pancakeswap/uikit'
+import Link from 'next/link'
 import { ChangeEvent, FormEvent, useState, useMemo, useEffect } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from '@pancakeswap/localization'
@@ -79,7 +81,7 @@ const Home = () => {
     }))
   }
 
-  const [address, isDeploy,  deploy] = useDeployContract(data.abi, data.bytecode, tokenName, tokenSymbol, tokenSupply)
+  const {address, isDeploy, deploy } = useDeployContract(data.abi, data.bytecode, tokenName, tokenSymbol, tokenSupply)
 
   const compileContract = () => {
 
@@ -111,7 +113,7 @@ const Home = () => {
       .catch(error => {
         setIsLoading(false)
         console.log(error);
-        toastError("Error", "Approve was called unnecessarily")
+        toastError("Error", "Compile contract failed")
       });
   }
 
@@ -152,6 +154,15 @@ const Home = () => {
                   <Input id="tokenSupply" name="tokenSupply" value={tokenSupply} scale="lg" onChange={handleChange} required />
                 </Box>
                 <Box mb="24px">
+                  <SecondaryLabel>{t('ERC20 token review')}</SecondaryLabel>
+                  <SecondaryLabel>{tokenName + ' (' + tokenSymbol + '): ' + tokenSupply.toString().toLocaleString("en-US")}</SecondaryLabel>
+                  {
+                    address && <Link href={'https://testnet.bscscan.com/address/' + address}>
+                    Contract address
+                  </Link>
+                  }
+                </Box>
+                <Box mb="24px">
                   <Button  
                     onClick={compileContract}
                     endIcon={isLoading ? spinnerIcon : undefined}
@@ -165,9 +176,9 @@ const Home = () => {
                       isLoading={isDeploy}>Deploy token</Button>
                   
                   }
-                  {
+                  {/* {
                     address && <Button onClick={verifyContract}>Verify contract</Button>
-                  }
+                  } */}
                 </Box>
                 </CardBody>
             </Card>

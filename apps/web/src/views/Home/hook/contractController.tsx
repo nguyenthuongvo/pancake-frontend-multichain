@@ -1,5 +1,5 @@
 import { useERC20Factory } from "hooks/useContract"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { useActiveChainId } from "hooks/useActiveChainId";
 import { useToast } from "@pancakeswap/uikit";
 import { ToastDescriptionWithTx } from "components/Toast";
@@ -11,32 +11,30 @@ export function useDeployContract(abi: string, bytecode: string, tokenName: stri
     const [address, setAddress] = useState('')
     const { chainId } = useActiveChainId()
 
-    const contractFactory = useERC20Factory(abi, bytecode, chainId);
-    const deploy = () => {
-        setDeploy(true)
+    console.log(abi)
+    console.log(bytecode)
+    
+    const contractFactory = useERC20Factory(abi, bytecode, chainId)
+
+    const deploy = useCallback(async (): Promise<void> => {
 
         try {
-            contractFactory.deploy(tokenName, tokenSymbol, tokenSupply).then((value) => {
-                setAddress(value.address)
-                setDeploy(false)
-                console.log(value.deployTransaction);
-                toastSuccess("Success", <ToastDescriptionWithTx txHash={value.deployTransaction.hash} />)
-            }).then((error) => {
-                console.log(error)
-                setDeploy(false)
-                toastError("Error", "Deploy smart contract error")
-            })
+            
+            setDeploy(true)
+            const result = await contractFactory.deploy(tokenName, tokenSymbol, tokenSupply)
+            console.log(result);
+            toastSuccess("Success", <ToastDescriptionWithTx txHash={result.deployTransaction.hash} />)
+            setDeploy(false)
+
         } catch (error) {
+            console.log(error)
             setDeploy(false)
             toastError("Error", "Deploy smart contract error")
-        } finally {
-            setDeploy(false)
         }
 
-        
-    }
+    },[])
 
-    return [address, isDeploy, deploy]
+    return  {address, isDeploy, deploy}
 }
 
 export default useDeployContract
