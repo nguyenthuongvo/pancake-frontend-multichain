@@ -1,7 +1,7 @@
 import type { Signer } from '@ethersproject/abstract-signer'
 import type { Provider } from '@ethersproject/providers'
 import { provider } from 'utils/wagmi'
-import { Contract } from '@ethersproject/contracts'
+import { Contract, ContractFactory } from '@ethersproject/contracts'
 import poolsConfig from 'config/constants/pools'
 import { PoolCategory } from 'config/constants/types'
 import { CAKE } from '@pancakeswap/tokens'
@@ -166,6 +166,24 @@ export const getContract = ({
 }) => {
   const signerOrProvider = signer ?? provider({ chainId })
   return new Contract(address, abi, signerOrProvider)
+}
+
+export const getFactoryContract = ({
+  abi,
+  bytecode,
+  chainId,
+  signer,
+}: {
+  abi: any
+  bytecode: any
+  chainId: number
+  signer?: Signer
+}) => {
+  return new ContractFactory(abi, bytecode, signer)
+}
+
+export const getContractFactory  = (abi?: any, bytecode?: any, chainId?: number, signer?: Signer) => {
+  return getFactoryContract({ abi, bytecode, chainId , signer }) as ContractFactory
 }
 
 export const getBep20Contract = (address: string, signer?: Signer | Provider) => {

@@ -59,6 +59,7 @@ import {
   getTradingCompetitionContractMoD,
   getNonBscVaultContract,
   getCrossFarmingProxyContract,
+  getContractFactory,
 } from 'utils/contractHelpers'
 import { useSigner } from 'wagmi'
 
@@ -93,6 +94,11 @@ export const useIfoV2Contract = (address: string) => {
 export const useIfoV3Contract = (address: string) => {
   const { data: signer } = useSigner()
   return useMemo(() => getIfoV3Contract(address, signer), [address, signer])
+}
+
+export const useERC20Factory = (abi: any, bytecode: any , chainId: number) => {
+  const { data: signer } = useSigner()
+  return useMemo(() => getContractFactory(abi, bytecode, chainId, signer), [abi, bytecode, chainId, signer])
 }
 
 export const useERC20 = (address: string, withSignerIfPossible = true) => {

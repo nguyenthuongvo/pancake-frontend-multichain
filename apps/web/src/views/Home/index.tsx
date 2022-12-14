@@ -5,22 +5,18 @@ import {
   CardHeader,
   Heading,
   Input,
-  Text,
   useToast,
+  Button,
+  AutoRenewIcon
 } from '@pancakeswap/uikit'
-import { ChangeEvent, FormEvent, useState, useMemo } from 'react'
-import { useWeb3LibraryContext, useWeb3React } from '@pancakeswap/wagmi'
+import { ChangeEvent, FormEvent, useState, useMemo, useEffect } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from '@pancakeswap/localization'
-import snapshot from '@snapshot-labs/snapshot.js'
 import Container from 'components/Layout/Container'
 import { PageMeta } from 'components/Layout/Page'
-import ReactMarkdown from 'components/ReactMarkdown'
-import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
+import useDeployContract from './hook/contractController'
 
-const hub = 'https://hub.snapshot.org'
-const client = new snapshot.Client712(hub)
+const spinnerIcon = <AutoRenewIcon spin color="currentColor" />
 
 const BaseLabel = styled.label`
   color: ${({ theme }) => theme.colors.text};
@@ -44,172 +40,141 @@ const Layout = styled.div`
   grid-gap: 32px;
   grid-template-columns: minmax(0, 1fr);
   ${({ theme }) => theme.mediaQueries.lg} {
-    grid-template-columns: 1fr 332px;
+    grid-template-columns: auto;
   }
 `
-
-export interface Choice {
-  id: string
-  value: string
-}
-
 export interface FormState {
-  name: string
-  body: string
-  choices: Choice[]
-  startDate: Date
-  startTime: Date
-  endDate: Date
-  endTime: Date
-  snapshot: number
+  tokenName: string
+  tokenSymbol: string
+  tokenSupply: number
 }
-
-
-const EasyMde = dynamic(() => import('components/EasyMde'), {
-  ssr: false,
-})
 
 const Home = () => {
 
   const [state, setState] = useState<FormState>(() => ({
-    name: '',
-    body: '',
-    choices: [],
-    startDate: null,
-    startTime: null,
-    endDate: null,
-    endTime: null,
-    snapshot: 0,
+    tokenName: 'Baby Doge',
+    tokenSymbol: 'BBD',
+    tokenSupply: 10000000
   }))
 
   const [isLoading, setIsLoading] = useState(false)
-  const [fieldsState, setFieldsState] = useState<{ [key: string]: boolean }>({})
   const { t } = useTranslation()
-  const { account } = useWeb3React()
-  const { toastSuccess, toastError } = useToast()
-  const { name, body, choices, startDate, startTime, endDate, endTime, snapshot } = state
+  const { toastSuccess, toastError, toastInfo } = useToast()
+  const { tokenName, tokenSymbol, tokenSupply } = state
+  const [data, setData] = useState({abi:'[]', bytecode: ''})
 
-  // eslint-disable-next-line @typescript-eslint/no-shadow
-  const library = useWeb3LibraryContext()
+  useEffect(() => {
+
+    toastInfo('Starting compiling server')
+    
+  }, [])
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name: inputName, value } = evt.currentTarget
+    console.log(inputName, value);
+    
     setState((prevState) => ({
       ...prevState,
       [inputName]: value,
     }))
   }
 
-  const handleEasyMdeChange = (value: string) => {
-    setState((prevState) => ({
-      ...prevState,
-      ['body']: value,
-    }))
-  }
+  const [address, isDeploy,  deploy] = useDeployContract(data.abi, data.bytecode, tokenName, tokenSymbol, tokenSupply)
 
-  const options = useMemo(() => {
-    return {
-      hideIcons: ['guide', 'fullscreen', 'preview', 'side-by-side', 'image']
-    }
-  }, [account])
+  const compileContract = () => {
 
-  const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault()
-    
-    const { push } = useRouter()
+    setIsLoading(true)
 
-    try {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-      const data: any = await client.proposal(library as any, account, {
-        space: 'cakevote.eth',
-        type: 'single-choice',
-        title: name,
-        body,
-        start: 124,
-        end: 124,
-        choices: choices
-          .filter((choice) => choice.value)
-          .map((choice) => {
-            return choice.value
-          }),
-        snapshot,
-        discussion: '',
-        plugins: JSON.stringify({}),
-        app: 'snapshot',
+    const raw = JSON.stringify({
+      "tokenName": tokenName,
+      "tokenSymbol": tokenSymbol,
+      "totalSupply": tokenSupply
+    });
+
+    const requestOptions : RequestInit = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:3000/api/createContract", requestOptions)
+      .then(response => response.json())
+      .then(result => {        
+        setData({abi: result["ERC20Tokenabi"], bytecode: result["ERC20Token"]})
+        setIsLoading(false)
+        toastSuccess("Success", "Compile contract success")
       })
-
-      // Redirect user to newly created proposal page
-      push(`/voting/proposal/${data.id}`)
-
-      setIsLoading(true)
-      // Redirect user to newly created proposal page
-      toastSuccess(t('Proposal created!'))
-    } catch (error) {
-      toastError(t('Error'), (error as Error)?.message)
-      console.error(error)
-      setIsLoading(false)
-    }
+      .catch(error => {
+        setIsLoading(false)
+        console.log(error);
+        toastError("Error", "Approve was called unnecessarily")
+      });
   }
 
+
+  const verifyContract = () => {
+    
+    var requestOptions : RequestInit = { method: 'GET', redirect: 'follow'};
+
+    fetch("/api/verifyContract?contractAddress=" + address, requestOptions)
+      .then(response => response.json())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
 
   return (
     <Container py="40px">
       <PageMeta />
-      <form onSubmit={handleSubmit}>
+      {/* <form> */}
         <Layout>
-          <Box>
-            <Box mb="24px">
-              <Label htmlFor="name">{t('Title')}</Label>
-              <Input id="name" name="name" value={name} scale="lg" onChange={handleChange} required />
-            </Box>
-            <Box mb="24px">
-              <Label htmlFor="body">{t('Content')}</Label>
-              <Text color="textSubtle" mb="8px">
-                {t('Tip: write in Markdown!')}
-              </Text>
-              <EasyMde
-                id="body"
-                name="body"
-                onTextChange={handleEasyMdeChange}
-                value={body}
-                options={options}
-                required
-              />
-            </Box>
-            {body && (
-              <Box mb="24px">
-                <Card>
-                  <CardHeader>
-                    <Heading as="h3" scale="md">
-                      {t('Preview')}
-                    </Heading>
-                  </CardHeader>
-                  <CardBody p="0" px="24px">
-                    <ReactMarkdown>{body}</ReactMarkdown>
-                  </CardBody>
-                </Card>
-              </Box>
-            )}
-          </Box>
-          
           <Box>
             <Card>
               <CardHeader>
                 <Heading as="h3" scale="md">
-                  {t('Actions')}
+                  {t('Create ERC20 token')}
                 </Heading>
               </CardHeader>
               <CardBody>
                 <Box mb="24px">
-                  <SecondaryLabel>{t('Start Date')}</SecondaryLabel>
-                  <Input id="name" name="name" value={name} scale="lg" onChange={handleChange} required />
+                  <SecondaryLabel>{t('Token name')}</SecondaryLabel>
+                  <Input id="tokenName" name="tokenName" value={tokenName} scale="lg" onChange={handleChange} required />
+                </Box>
+                <Box mb="24px">
+                  <SecondaryLabel>{t('Token Symbol')}</SecondaryLabel>
+                  <Input id="tokenSymbol" name="tokenSymbol" value={tokenSymbol} scale="lg" onChange={handleChange} required />
+                </Box>
+                <Box mb="24px">
+                  <SecondaryLabel>{t('Total supply')}</SecondaryLabel>
+                  <Input id="tokenSupply" name="tokenSupply" value={tokenSupply} scale="lg" onChange={handleChange} required />
+                </Box>
+                <Box mb="24px">
+                  <Button  
+                    onClick={compileContract}
+                    endIcon={isLoading ? spinnerIcon : undefined}
+                    isLoading={isLoading}
+                  >Compile smart contract</Button>
+                  {
+                    data.bytecode.length > 10 && 
+                      <Button 
+                      onClick={deploy}
+                      endIcon={isDeploy ? spinnerIcon : undefined}
+                      isLoading={isDeploy}>Deploy token</Button>
+                  
+                  }
+                  {
+                    address && <Button onClick={verifyContract}>Verify contract</Button>
+                  }
                 </Box>
                 </CardBody>
             </Card>
           </Box>
-
+          
         </Layout>
-      </form>
+      {/* </form> */}
     </Container>
   )
 }

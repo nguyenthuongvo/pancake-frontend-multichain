@@ -50,6 +50,9 @@ const config = {
   experimental: {
     scrollRestoration: true,
   },
+  node: {
+    fs: 'empty'
+  },
   reactStrictMode: true,
   swcMinify: true,
   images: {
@@ -164,7 +167,7 @@ const config = {
       }),
     )
     return webpackConfig
-  },
+  }
 }
 
 export default withBundleAnalyzer(
