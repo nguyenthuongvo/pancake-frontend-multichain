@@ -2,6 +2,8 @@ import {
   MenuItemsType,
   SwapIcon,
   SwapFillIcon,
+  TicketIcon,
+  TicketFillIcon,
   DropdownMenuItems,
 } from '@pancakeswap/uikit'
 import { ContextApi } from '@pancakeswap/localization'
@@ -32,14 +34,20 @@ const config: (
 ) => ConfigMenuItemsType[] = (t, isDark, languageCode, chainId) =>
   [
     {
-      label: t('Home'),
+      label: t('Token'),
       icon: SwapIcon,
       fillIcon: SwapFillIcon,
       href: '/',
       showItemsOnMobile: false,
-      items: [
-        
-      ].map((item) => addMenuItemSupported(item, chainId)),
+      items: [].map((item) => addMenuItemSupported(item, chainId)),
+    },
+    {
+      label: t('NFT'),
+      icon: TicketIcon,
+      fillIcon: TicketFillIcon,
+      href: '/nft',
+      showItemsOnMobile: false,
+      items: [].map((item) => addMenuItemSupported(item, chainId)),
     },
   ].map((item) => addMenuItemSupported(item, chainId))
 

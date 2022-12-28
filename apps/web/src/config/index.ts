@@ -22,3 +22,7 @@ export const AUCTION_BIDDERS_TO_FETCH = 500
 export const RECLAIM_AUCTIONS_TO_FETCH = 500
 export const AUCTION_WHITELISTED_BIDDERS_TO_FETCH = 500
 export const IPFS_GATEWAY = 'https://ipfs.io/ipfs'
+export const EXPLORER_LINK = {
+    97: "https://testnet.bscscan.com/address/",
+    56: "https://bscscan.com/address/"
+}

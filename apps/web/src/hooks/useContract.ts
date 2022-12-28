@@ -101,6 +101,11 @@ export const useERC20Factory = (abi: any, bytecode: any) => {
   return useMemo(() => getContractFactory(abi, bytecode, signer), [abi, bytecode, signer])
 }
 
+export const useERC721Factory = (abi: any, bytecode: any) => {
+  const { data: signer } = useSigner()
+  return useMemo(() => getContractFactory(abi, bytecode, signer), [abi, bytecode, signer])
+}
+
 export const useERC20 = (address: string, withSignerIfPossible = true) => {
   const providerOrSigner = useProviderOrSigner(withSignerIfPossible)
   return useMemo(() => getBep20Contract(address, providerOrSigner), [address, providerOrSigner])
