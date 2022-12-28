@@ -49,7 +49,7 @@ export default async function  handler(
             ContractMapping[contractName] = output.contracts['ERC721Token.sol'][contractName].evm.bytecode.object
             ContractMapping[contractName+'abi'] = output.contracts['ERC721Token.sol'][contractName].abi
           }
-    
+
         return res.status(200).json(ContractMapping)
     }
 
