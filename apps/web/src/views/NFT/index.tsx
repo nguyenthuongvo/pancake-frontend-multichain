@@ -574,9 +574,6 @@ const Home = () => {
       .catch(error => console.log('error', error));
   }
 
-  console.log(EXPLORER_LINK[chainId]);
-  
-
   return (
     <Container py="40px">
       <PageMeta />

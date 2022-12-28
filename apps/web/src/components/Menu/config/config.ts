@@ -37,7 +37,7 @@ const config: (
       label: t('Token'),
       icon: SwapIcon,
       fillIcon: SwapFillIcon,
-      href: '/',
+      href: '/token',
       showItemsOnMobile: false,
       items: [].map((item) => addMenuItemSupported(item, chainId)),
     },

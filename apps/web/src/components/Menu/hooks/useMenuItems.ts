@@ -6,10 +6,7 @@ import { useTranslation } from '@pancakeswap/localization'
 import config, { ConfigMenuItemsType } from '../config/config'
 
 export const useMenuItems = (): ConfigMenuItemsType[] => {
-  const {
-    t,
-    currentLanguage: { code: languageCode },
-  } = useTranslation()
+  const {t,currentLanguage: { code: languageCode },} = useTranslation()
   const { chainId } = useActiveWeb3React()
   const { isDark } = useTheme()
   const menuItemsStatus = []
