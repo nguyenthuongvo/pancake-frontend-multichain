@@ -6,10 +6,8 @@ import storage from 'redux-persist/lib/storage'
 import farmsReducer from './farms'
 import { updateVersion } from './global/actions'
 import lotteryReducer from './lottery'
-import poolsReducer from './pools'
 import transactions from './transactions/reducer'
 import user from './user/reducer'
-import potteryReducer from './pottery'
 import globalReducer from './global/reducer'
 
 const PERSISTED_KEYS: string[] = ['user', 'transactions']
@@ -27,10 +25,7 @@ const persistedReducer = persistReducer(
   combineReducers({
     global: globalReducer,
     farms: farmsReducer,
-    pools: poolsReducer,
     lottery: lotteryReducer,
-    pottery: potteryReducer,
-
     // Exchange
     user,
     transactions,

@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { DEFAULT_TOKEN_DECIMAL, DEFAULT_GAS_LIMIT } from 'config'
-import { getNonBscVaultContractFee, MessageTypes } from 'views/Farms/hooks/getNonBscVaultFee'
 import { logGTMClickStakeFarmEvent } from 'utils/customGTMEventTracking'
-import { getMasterChefContract, getNonBscVaultContract } from 'utils/contractHelpers'
+import { getMasterChefContract } from 'utils/contractHelpers'
 
 type MasterChefContract = ReturnType<typeof getMasterChefContract>
 
@@ -34,60 +33,5 @@ export const harvestFarm = async (masterChefContract: MasterChefContract, pid, g
     gasPrice,
     account: masterChefContract.account,
     chain: masterChefContract.chain,
-  })
-}
-
-export const nonBscStakeFarm = async (
-  contract: ReturnType<typeof getNonBscVaultContract>,
-  pid,
-  amount,
-  gasPrice,
-  account,
-  oraclePrice,
-  chainId,
-) => {
-  const value = new BigNumber(amount).times(DEFAULT_TOKEN_DECIMAL).toString()
-  const totalFee = await getNonBscVaultContractFee({
-    pid,
-    chainId,
-    gasPrice,
-    oraclePrice,
-    amount: value,
-    userAddress: account,
-    messageType: MessageTypes.Deposit,
-  })
-  console.info(totalFee, 'stake totalFee')
-  logGTMClickStakeFarmEvent()
-  return contract.write.deposit([pid, BigInt(value)], {
-    value: BigInt(totalFee),
-    account: contract.account,
-    chain: contract.chain,
-  })
-}
-
-export const nonBscUnstakeFarm = async (
-  contract: ReturnType<typeof getNonBscVaultContract>,
-  pid,
-  amount,
-  gasPrice,
-  account,
-  oraclePrice,
-  chainId,
-) => {
-  const value = new BigNumber(amount).times(DEFAULT_TOKEN_DECIMAL).toString()
-  const totalFee = await getNonBscVaultContractFee({
-    pid,
-    chainId,
-    gasPrice,
-    oraclePrice,
-    amount: value,
-    userAddress: account,
-    messageType: MessageTypes.Withdraw,
-  })
-  console.info(totalFee, 'unstake totalFee')
-  return contract.write.withdraw([pid, BigInt(value)], {
-    value: BigInt(totalFee),
-    account: contract.account,
-    chain: contract.chain,
   })
 }

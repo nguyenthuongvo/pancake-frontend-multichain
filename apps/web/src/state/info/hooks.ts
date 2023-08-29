@@ -7,7 +7,6 @@ import fetchPoolChartData from 'state/info/queries/pools/chartData'
 import { fetchAllPoolData, fetchAllPoolDataWithAddress } from 'state/info/queries/pools/poolData'
 import fetchPoolTransactions from 'state/info/queries/pools/transactions'
 import { fetchGlobalChartData } from 'state/info/queries/protocol/chart'
-import { fetchProtocolData } from 'state/info/queries/protocol/overview'
 import fetchTopTransactions from 'state/info/queries/protocol/transactions'
 import fetchTokenChartData from 'state/info/queries/tokens/chartData'
 import fetchPoolsForToken from 'state/info/queries/tokens/poolsForToken'
@@ -21,7 +20,7 @@ import { getAprsForStableFarm } from 'utils/getAprsForStableFarm'
 import { getDeltaTimestamps } from 'utils/getDeltaTimestamps'
 import { useBlockFromTimeStampSWR } from 'views/Info/hooks/useBlocksFromTimestamps'
 import { MultiChainName, MultiChainNameExtend, checkIsStableSwap, multiChainId } from './constant'
-import { ChartEntry, PoolData, PriceChartEntry, ProtocolData, TokenData } from './types'
+import { ChartEntry, PoolData, PriceChartEntry, TokenData } from './types'
 
 // Protocol hooks
 
@@ -34,21 +33,6 @@ const SWR_SETTINGS: SWRConfiguration = {
   refreshInterval: refreshIntervalForInfo,
   keepPreviousData: true,
   ...SWR_SETTINGS_WITHOUT_REFETCH,
-}
-
-export const useProtocolDataSWR = (): ProtocolData | undefined => {
-  const chainName = useChainNameByQuery()
-  const [t24, t48] = getDeltaTimestamps()
-  const { blocks } = useBlockFromTimeStampSWR([t24, t48])
-  const [block24, block48] = blocks ?? []
-  const type = checkIsStableSwap() ? 'stableSwap' : 'swap'
-  const { data: protocolData } = useSWRImmutable(
-    chainName && block24 && block48 ? [`info/protocol/updateProtocolData/${type}`, chainName] : null,
-    () => fetchProtocolData(chainName, block24, block48),
-    SWR_SETTINGS_WITHOUT_REFETCH,
-  )
-
-  return protocolData ?? undefined
 }
 
 export const useProtocolChartDataSWR = (): ChartEntry[] | undefined => {

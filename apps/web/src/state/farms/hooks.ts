@@ -4,7 +4,6 @@ import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'state'
 import useSWRImmutable from 'swr/immutable'
-import { useBCakeProxyContractAddress } from 'views/Farms/hooks/useBCakeProxyContractAddress'
 import { getMasterChefContract } from 'utils/contractHelpers'
 import { getFarmConfig } from '@pancakeswap/farms/constants'
 import {
@@ -51,11 +50,6 @@ export function useFarmV2PublicAPI() {
 export const usePollFarmsWithUserData = () => {
   const dispatch = useAppDispatch()
   const { account, chainId } = useAccountActiveChain()
-  const {
-    proxyAddress,
-    proxyCreated,
-    isLoading: isProxyContractLoading,
-  } = useBCakeProxyContractAddress(account, chainId)
 
   useSWRImmutable(
     chainId && supportedChainIdV2.includes(chainId) ? ['publicFarmData', chainId] : null,
@@ -71,17 +65,15 @@ export const usePollFarmsWithUserData = () => {
     },
   )
 
-  const name = proxyCreated
-    ? ['farmsWithUserData', account, proxyAddress, chainId]
-    : ['farmsWithUserData', account, chainId]
+  const name = ['farmsWithUserData', account, chainId]
 
   useSWRImmutable(
-    account && chainId && !isProxyContractLoading ? name : null,
+    account && chainId && name,
     async () => {
       const farmsConfig = await getFarmConfig(chainId)
       if (!farmsConfig) return
       const pids = farmsConfig.map((farmToFetch) => farmToFetch.pid)
-      const params = proxyCreated ? { account, pids, proxyAddress, chainId } : { account, pids, chainId }
+      const params = { account, pids, chainId }
       dispatch(fetchFarmUserDataAsync(params))
     },
     {

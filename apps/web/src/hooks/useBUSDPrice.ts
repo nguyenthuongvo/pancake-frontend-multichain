@@ -5,8 +5,6 @@ import useSWRImmutable from 'swr/immutable'
 import { multiplyPriceByAmount } from 'utils/prices'
 import { useCakePrice } from 'hooks/useCakePrice'
 import { getFullDecimalMultiplier } from '@pancakeswap/utils/getFullDecimalMultiplier'
-import { computeTradePriceBreakdown } from 'views/Swap/V3Swap/utils/exchange'
-import { warningSeverity } from 'utils/exchange'
 import { PairState, useV2Pairs } from './usePairs'
 import { useActiveChainId } from './useActiveChainId'
 import { useBestAMMTrade } from './useBestAMMTrade'
@@ -106,11 +104,7 @@ export function useStablecoinPrice(
 
       // if price impact is too high, don't show price
       if (hideIfPriceImpactTooHigh) {
-        const { priceImpactWithoutFee } = computeTradePriceBreakdown(trade)
-
-        if (!priceImpactWithoutFee || warningSeverity(priceImpactWithoutFee) > 2) {
-          return undefined
-        }
+        return undefined
       }
 
       return new Price(currency, stableCoin, inputAmount.quotient, outputAmount.quotient)

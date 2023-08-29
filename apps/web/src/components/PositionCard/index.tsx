@@ -1,4 +1,4 @@
-import { useMemo, useContext } from 'react'
+import { useMemo } from 'react'
 import { Currency, CurrencyAmount, Pair, Percent } from '@pancakeswap/sdk'
 import { Text, Card, CardBody, Flex, CardProps, TooltipText, useTooltip, Link, AutoColumn } from '@pancakeswap/uikit'
 import styled from 'styled-components'
@@ -7,9 +7,6 @@ import useTotalSupply from 'hooks/useTotalSupply'
 import { useStablecoinPriceAmount } from 'hooks/useBUSDPrice'
 import { useAccount } from 'wagmi'
 import { BIG_INT_ZERO } from 'config/constants/exchange'
-import { useGetRemovedTokenAmounts } from 'views/RemoveLiquidity/RemoveStableLiquidity/hooks/useStableDerivedBurnInfo'
-import { StableConfigContext } from 'views/Swap/hooks/useStableConfig'
-
 import { useLPApr } from 'state/swap/useLPApr'
 import { useTokenBalance } from 'state/wallet/hooks'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
@@ -115,7 +112,7 @@ export const withLPValues = withLPValuesFactory({
 })
 
 export const withStableLPValues = withLPValuesFactory({
-  useLPValuesHook: useGetRemovedTokenAmounts,
+  useLPValuesHook: '',
   hookArgFn: ({ userPoolBalance }) => ({
     lpAmount: userPoolBalance?.quotient?.toString(),
   }),
@@ -131,7 +128,7 @@ function MinimalPositionCardView({
   userPoolBalance,
   poolTokenPercentage,
 }: PositionCardProps) {
-  const isStableLP = useContext(StableConfigContext)
+  const isStableLP = false
 
   const { t } = useTranslation()
   const poolData = useLPApr(pair)

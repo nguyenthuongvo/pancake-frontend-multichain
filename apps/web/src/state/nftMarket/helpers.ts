@@ -11,14 +11,12 @@ import pickBy from 'lodash/pickBy'
 import range from 'lodash/range'
 import lodashSize from 'lodash/size'
 import { stringify } from 'querystring'
-import { isAddress } from 'utils'
 import { Address } from 'wagmi'
 import { getNftMarketAddress } from 'utils/addressHelpers'
 import { getNftMarketContract } from 'utils/contractHelpers'
 import { publicClient } from 'utils/wagmi'
 import { ChainId } from '@pancakeswap/sdk'
 import { nftMarketABI } from 'config/abi/nftMarket'
-import { pancakeBunniesAddress } from 'views/Nft/market/constants'
 import { baseNftFields, baseTransactionFields, collectionBaseFields } from './queries'
 import {
   ApiCollection,
@@ -168,7 +166,7 @@ export const getNftsFromCollectionApi = async (
   size = 100,
   page = 1,
 ): Promise<ApiResponseCollectionTokens> => {
-  const isPBCollection = isAddress(collectionAddress) === pancakeBunniesAddress
+  const isPBCollection = false
   const requestPath = `${API_NFT}/collections/${collectionAddress}/tokens${
     !isPBCollection ? `?page=${page}&size=${size}` : ``
   }`
@@ -306,7 +304,7 @@ export const getNftsFromCollectionSg = async (
   skip = 0,
 ): Promise<TokenMarketData[]> => {
   // Squad to be sorted by tokenId as this matches the order of the paginated API return. For PBs - get the most recent,
-  const isPBCollection = isAddress(collectionAddress) === pancakeBunniesAddress
+  const isPBCollection = false
 
   try {
     const res = await request(
@@ -356,7 +354,7 @@ export const getNftsByBunnyIdSg = async (
         }
       `,
       {
-        collectionAddress: pancakeBunniesAddress.toLowerCase(),
+        collectionAddress: '0x',
         where,
         orderDirection,
       },
@@ -943,7 +941,7 @@ export const combineApiAndSgResponseToNftToken = (
     name: apiMetadata.name,
     description: apiMetadata.description,
     collectionName: apiMetadata.collection.name,
-    collectionAddress: pancakeBunniesAddress,
+    collectionAddress: '0x',
     image: apiMetadata.image,
     marketData,
     attributes,

@@ -2,19 +2,18 @@ import useSWRImmutable from 'swr/immutable'
 import { ProposalState, Proposal } from 'state/types'
 import request, { gql } from 'graphql-request'
 import { SNAPSHOT_API } from 'config/constants/endpoints'
-import { PANCAKE_SPACE, ADMINS } from 'views/Voting/config'
 
 export const getCoreProposal = async (type: ProposalState): Promise<Proposal[]> => {
   const response = await request(
     SNAPSHOT_API,
     gql`
       query getProposals($first: Int!, $skip: Int!, $state: String!, $admins: [String]!) {
-        proposals(first: $first, skip: $skip, where: { author_in: $admins, space_in: "${PANCAKE_SPACE}", state: $state }) {
+        proposals(first: $first, skip: $skip, where: { author_in: $admins, space_in: "", state: $state }) {
           id
         }
       }
     `,
-    { first: 1, skip: 0, state: type, admins: ADMINS },
+    { first: 1, skip: 0, state: type, admins: 'ADMINS' },
   )
   return response.proposals
 }

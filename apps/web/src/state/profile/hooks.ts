@@ -1,6 +1,4 @@
 import { useAccount } from 'wagmi'
-import { getAchievements } from 'state/achievements/helpers'
-import { useTranslation } from '@pancakeswap/localization'
 import { FetchStatus } from 'config/constants/types'
 import useSWR, { KeyedMutator } from 'swr'
 import { localStorageMiddleware } from 'hooks/useSWRContract'
@@ -35,20 +33,6 @@ export const useProfileForAddress = (
     isLoading: status !== FetchStatus.Fetched,
     isFetching: status === FetchStatus.Fetching,
     isValidating,
-    refresh: mutate,
-  }
-}
-
-export const useAchievementsForAddress = (address: string) => {
-  const { t } = useTranslation()
-
-  const { data, status, mutate } = useSWRImmutable(address ? [address, 'achievements'] : null, () =>
-    getAchievements(address, t),
-  )
-
-  return {
-    achievements: data || [],
-    isFetching: status === FetchStatus.Fetching,
     refresh: mutate,
   }
 }
